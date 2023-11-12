@@ -26,6 +26,7 @@ public class Balls {
             point[i].setLocation(0,0);
         }
     }
+
     @Override
     public String toString() {
         String r = " ";
