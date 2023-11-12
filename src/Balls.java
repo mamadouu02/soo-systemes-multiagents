@@ -2,28 +2,44 @@ import java.awt.*;
 
 public class Balls {
 
-    private Point[] point;
+    private Point[] points;
     private int nbBalls;
 
     public Balls() {
-        this.point = new Point[0];
+        this.points = new Point[0];
         this.nbBalls = 0;
     }
 
     public Balls(Point[] point, int nbBalls) {
-        this.point = point;
+        this.points = point;
+        this.nbBalls = nbBalls;
+    }
+
+    public Point[] getPoint() {
+        return this.points;
+    }
+
+    public void setPoint(Point[] point) {
+        this.points = point;
+    }
+
+    public int getNbBalls() {
+        return this.nbBalls;
+    }
+
+    public void setNbBalls(int nbBalls) {
         this.nbBalls = nbBalls;
     }
 
     public void translate(int dx, int dy) {
         for (int i = 0; i < this.nbBalls; i++) {
-            point[i].translate(dx, dy);
+            points[i].translate(dx, dy);
         }
     }
 
     public void reInit() {
-        for (int i = 0; i < this.nbBalls; i++){
-            point[i].setLocation(0,0);
+        for (int i = 0; i < this.nbBalls; i++) {
+            points[i].setLocation(0, 0);
         }
     }
 
@@ -31,9 +47,9 @@ public class Balls {
     public String toString() {
         String r = " ";
         for (int i = 0; i < this.nbBalls - 1; i++){
-            r += point[i].toString() + " ; ";
+            r += points[i].toString() + " ; ";
         }
-        r += point[nbBalls-1].toString();
+        r += points[nbBalls-1].toString();
         return r;
     }
 }

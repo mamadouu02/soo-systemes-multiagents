@@ -3,7 +3,7 @@ import java.awt.*;
 public class TestBalls {
 
     public static void main(String[] args) {
-        Point ball1 = new Point(0,0);
+        Point ball1 = new Point(0, 0);
         Point ball2 = new Point(3, 2);
         Point ball3 = new Point(5, 0);
 
