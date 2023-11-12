@@ -9,10 +9,11 @@ public class TestBalls {
         Point[] points = new Point[] {ball1, ball2, ball3};
         Balls balls = new Balls(points, 3);
 
-        balls.toString();
+        System.out.println(balls);
         balls.translate(-1, 7);
-        balls.toString();
+        System.out.println(balls);
         balls.reInit();
-        balls.toString();
+        System.out.println(balls);
     }
 }
+
