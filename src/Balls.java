@@ -19,8 +19,12 @@ public class Balls {
         return this.points;
     }
 
-    public void setPoint(Point[] point) {
-        this.points = point;
+    public void setPoint(Point[] points) {
+        for (int i = 0; i < this.getNbBalls(); i++) {
+            this.points[i] = new Point();
+            this.points[i].x = points[i].x;
+            this.points[i].y = points[i].y;
+        }
     }
 
     public int getNbBalls() {
