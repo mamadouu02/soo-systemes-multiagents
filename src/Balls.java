@@ -3,57 +3,55 @@ import java.awt.*;
 public class Balls {
 
     private Point[] points;
-    private int nbBalls;
-
-    public Balls() {
-        this.points = new Point[0];
-        this.nbBalls = 0;
+    private Point[] posInit;
+    
+    public Balls(Point[] points) {
+        setPoints(points);
+    }
+    
+    public Balls(Balls balls) {
+        setPoints(balls.getPoints());
     }
 
-    public Balls(Point[] point, int nbBalls) {
-        this.points = point;
-        this.nbBalls = nbBalls;
-    }
-
-    public Point[] getPoint() {
+    public Point[] getPoints() {
         return this.points;
     }
 
-    public void setPoint(Point[] points) {
+    public void setPoints(Point[] points) {
+        this.points = new Point[points.length];
+        this.posInit = new Point[points.length];
+
         for (int i = 0; i < this.getNbBalls(); i++) {
-            this.points[i] = new Point();
-            this.points[i].x = points[i].x;
-            this.points[i].y = points[i].y;
+            this.points[i] = new Point(points[i]);
+            this.posInit[i] = new Point(points[i]);
         }
     }
 
     public int getNbBalls() {
-        return this.nbBalls;
-    }
-
-    public void setNbBalls(int nbBalls) {
-        this.nbBalls = nbBalls;
+        return this.points.length;
     }
 
     public void translate(int dx, int dy) {
-        for (int i = 0; i < this.nbBalls; i++) {
-            points[i].translate(dx, dy);
+        for (Point point : this.points) {
+            point.translate(dx, dy);
         }
     }
 
     public void reInit() {
-        for (int i = 0; i < this.nbBalls; i++) {
-            points[i].setLocation(0, 0);
+        for (int i = 0; i < this.getNbBalls(); i++) {
+            this.points[i].setLocation(posInit[i]);
         }
     }
 
     @Override
     public String toString() {
-        String r = " ";
-        for (int i = 0; i < this.nbBalls - 1; i++){
-            r += points[i].toString() + " ; ";
+        String s = "";
+        int nbBalls = getNbBalls();
+
+        for (int i = 0; i < nbBalls - 1; i++) {
+            s += this.points[i].toString() + ", ";
         }
-        r += points[nbBalls-1].toString();
-        return r;
+
+        return "[" + s + points[nbBalls - 1].toString() + "]";
     }
 }

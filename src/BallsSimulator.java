@@ -1,69 +1,65 @@
+import java.awt.*;
+
 import gui.GUISimulator;
-import gui.Rectangle;
 import gui.Simulable;
 import gui.Oval;
-import java.awt.*;
 
 public class BallsSimulator implements Simulable {
 
     private final Balls balls;
-    private GUISimulator gui;
-    private Point[] pointsInit;
-    private Point[] translate;
+    private Point[] dir;
+    private GUISimulator window;
+    private int width, height;
+    Color[] colors = { Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN, Color.WHITE };
 
-    public BallsSimulator(Balls balls, GUISimulator gui) {
-        this.balls = balls;
-        this.gui = gui;
+    public BallsSimulator(Balls balls, GUISimulator window) {
+        this.balls = new Balls(balls);
+        this.dir = new Point[balls.getNbBalls()];
+        this.window = window;
+        this.width = window.getPanelWidth();
+        this.height = window.getPanelHeight();
 
-        this.pointsInit = new Point[balls.getNbBalls()];
-        this.translate = new Point[balls.getNbBalls()];
         for (int i = 0; i < balls.getNbBalls(); i++) {
-            this.pointsInit[i] = new Point();
-            this.pointsInit[i].x = balls.getPoint()[i].x;
-            this.pointsInit[i].y = balls.getPoint()[i].y;
-            this.translate[i] = new Point(10,10);
+            this.dir[i] = new Point(10, 10);
         }
     }
 
     @Override
     public void next() {
-        for (int i = 0; i < balls.getNbBalls(); i++){
-            this.balls.getPoint()[i].translate(translate[i].x, translate[i].y);
-        }
-
-        gui.reset();
-        Point[] points = this.balls.getPoint();
+        window.reset();
+        
         for (int i = 0; i < balls.getNbBalls(); i++) {
-            int width = gui.getPanelWidth();
-            int height = gui.getPanelHeight();
-            if (points[i].x > width - 10) {
-                points[i].x = width - 20 - (points[i].x - width);
-                translate[i].x = -translate[i].x;
+            Point point = balls.getPoints()[i];
+
+            point.translate(dir[i].x, dir[i].y);
+
+            if (point.x > width - 10) {
+                point.x = width - 20 - (point.x - width);
+                dir[i].x *= -1;
             }
-            if (points[i].y > height - 10) {
-                points[i].y = height - 20 - (points[i].y - height);
-                translate[i].y = -translate[i].y;
+
+            if (point.y > height - 10) {
+                point.y = height - 20 - (point.y - height);
+                dir[i].y *= -1;
             }
-            if (points[i].x < 10) {
-                points[i].x -= 2*(points[i].x-10);
-                translate[i].x = -translate[i].x;
+            
+            if (point.x < 10) {
+                point.x -= 2 * (point.x - 10);
+                dir[i].x *= -1;
             }
-            if (points[i].y < 10) {
-                points[i].y -= 2*(points[i].y-10);
-                translate[i].y = -translate[i].y;
+            
+            if (point.y < 10) {
+                point.y -= 2 * (point.y - 10);
+                dir[i].y *= -1;
             }
-            Color[] colors = new Color[] {Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN, Color.WHITE};
-            gui.addGraphicalElement(new Oval(points[i].x, points[i].y, colors[i%5], colors[i%5], 10, 10));
+            
+            window.addGraphicalElement(new Oval(point.x, point.y, colors[i % colors.length], colors[i % colors.length], 10));
         }
     }
+
     @Override
     public void restart() {
-        balls.setPoint(pointsInit);
-
-        gui.reset();
-        Point[] points = this.balls.getPoint();
-        for (int i = 0; i < balls.getNbBalls(); i++) {
-            gui.addGraphicalElement(new Oval(points[i].x, points[i].y, Color.WHITE, Color.WHITE, 10, 10));
-        }
+        window.reset();
+        balls.reInit();
     }
 }

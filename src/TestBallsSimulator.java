@@ -1,13 +1,11 @@
-import gui.GUISimulator ;
-import gui.Oval;
-
-import java.awt.Color ;
 import java.awt.*;
+
+import gui.GUISimulator;
 
 public class TestBallsSimulator {
 
-    public static void main (String[] args ) {
-        GUISimulator gui = new GUISimulator(500, 500, Color.BLACK);
+    public static void main (String[] args) {
+        GUISimulator window = new GUISimulator(500, 500, Color.BLACK);
 
         Point ball1 = new Point(200, 0);
         Point ball2 = new Point(0, 200);
@@ -16,9 +14,9 @@ public class TestBallsSimulator {
         Point ball5 = new Point(0, 0);
         Point balti = new Point(50, 70);
 
-        Point[] points = new Point[] { ball1, ball2, ball3, ball4, ball5, balti };
-        Balls balls = new Balls(points, 6);
+        Point[] points = { ball1, ball2, ball3, ball4, ball5, balti };
+        Balls balls = new Balls(points);
 
-        gui.setSimulable(new BallsSimulator(balls, gui));
+        window.setSimulable(new BallsSimulator(balls, window));
     }
 }

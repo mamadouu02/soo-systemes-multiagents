@@ -7,8 +7,8 @@ public class TestBalls {
         Point ball2 = new Point(3, 2);
         Point ball3 = new Point(5, 0);
 
-        Point[] points = new Point[] {ball1, ball2, ball3};
-        Balls balls = new Balls(points, 3);
+        Point[] points = { ball1, ball2, ball3 };
+        Balls balls = new Balls(points);
 
         System.out.println(balls);
         balls.translate(-1, 7);
@@ -17,4 +17,3 @@ public class TestBalls {
         System.out.println(balls);
     }
 }
-
