@@ -12,8 +12,8 @@ public class TestSchellingSimulation {
     public static void main(String[] args) {
         GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
         Cellule[][] grille = new Cellule[10][10];
-        int nbEtats = 3;
-        int K = 1;
+        int nbEtats = 4;
+        int K = 2;
 
         for (int i = 0; i < 10; i++) {
             grille[i] = new Cellule[10];
@@ -74,7 +74,6 @@ class SchellingSimulation implements Simulable {
 
     @Override
     public void next() {
-        window.reset();
 
         for (int i = 0; i < n; i++) {
             voisinsLigne = new int[] { (i-1)%n == -1 ? n-1 : (i-1)%n , i%n, (i+1)%n };
@@ -108,8 +107,11 @@ class SchellingSimulation implements Simulable {
         }
 
         while (!tmp.isEmpty()){
-            vacantAvant.add(tmp.remove());
+            Point point = tmp.remove();
+            vacantAvant.add(new Point(point.x, point.y));
         }
+
+        window.reset();
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -129,9 +131,19 @@ class SchellingSimulation implements Simulable {
     public void restart() {
         window.reset();
 
+        while (!(vacantAvant.isEmpty())){
+            vacantAvant.remove();
+        }
+        
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 grilleAvant[i][j].setEtat(grilleInitiale[i][j].getEtat());
+                grilleApres[i][j].setEtat(grilleInitiale[i][j].getEtat());
+
+                if (grilleInitiale[i][j].getEtat() == 0) {
+                    vacantAvant.add(new Point(i, j));
+                }
+
 
                 int etat = grilleAvant[i][j].getEtat();
                 if (etat == 0){
