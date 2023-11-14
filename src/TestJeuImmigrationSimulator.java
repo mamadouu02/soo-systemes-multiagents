@@ -5,7 +5,6 @@ import gui.Simulable;
 import gui.Rectangle;
 
 public class TestJeuImmigrationSimulator {
-
     public static void main(String[] args) {
         GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
         Cellule[][] grille = new Cellule[10][10];
@@ -23,40 +22,12 @@ public class TestJeuImmigrationSimulator {
     }
 }
 
-class JeuImmigrationSimulator implements Simulable {
-
-    private final int n;
-    private final int m;
+class JeuImmigrationSimulator extends Grille {
     private final int nbEtats;
-    private final Cellule[][] grilleInitiale;
-    private final Cellule[][] grilleAvant;
-    private final Cellule[][] grilleApres;
-    private final GUISimulator window;
 
     public JeuImmigrationSimulator(Cellule[][] grille, int n, int m, int nbEtats, GUISimulator window) {
-        this.n = n;
-        this.m = m;
-        this.grilleInitiale = new Cellule[n][m];
-        this.grilleAvant = new Cellule[n][m];
-        this.grilleApres = new Cellule[n][m];
-        this.window = window;
+        super(grille, n, m, window);
         this.nbEtats = nbEtats;
-
-        for (int i = 0; i < this.n; i++) {
-            this.grilleInitiale[i] = new Cellule[m];
-            this.grilleAvant[i] = new Cellule[m];
-            this.grilleApres[i] = new Cellule[m];
-
-            for (int j = 0; j < this.m; j++) {
-                this.grilleInitiale[i][j] = new Cellule(nbEtats);
-                this.grilleInitiale[i][j].setEtat(grille[i][j].getEtat());
-
-                this.grilleAvant[i][j] = new Cellule(nbEtats);
-                this.grilleAvant[i][j].setEtat(grille[i][j].getEtat());
-
-                this.grilleApres[i][j] = new Cellule(nbEtats);
-            }
-        }
     }
 
     int[] voisinsLigne;

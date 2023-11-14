@@ -4,7 +4,7 @@ import gui.GUISimulator;
 import gui.Simulable;
 import gui.Rectangle;
 
-public class TestGrilleSimulator {
+public class TestConwaySimulator {
     public static void main(String[] args) {
         GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
         Cellule[][] grille = new Cellule[10][10];
@@ -17,42 +17,14 @@ public class TestGrilleSimulator {
             }
         }
 
-        window.setSimulable(new GrilleSimulator(grille, 10, 10, window));
+        window.setSimulable(new ConwaySimulator(grille, 10, 10, window));
     }
 }
 
-class GrilleSimulator implements Simulable {
+class ConwaySimulator extends Grille {
 
-    private final int n;
-    private final int m;
-    private final Cellule[][] grilleInitiale;
-    private final Cellule[][] grilleAvant;
-    private final Cellule[][] grilleApres;
-    private final GUISimulator window;
-
-    public GrilleSimulator(Cellule[][] grille, int n, int m, GUISimulator window) {
-        this.n = n;
-        this.m = m;
-        this.grilleInitiale = new Cellule[n][m];
-        this.grilleAvant = new Cellule[n][m];
-        this.grilleApres = new Cellule[n][m];
-        this.window = window;
-
-        for (int i = 0; i < this.n; i++) {
-            this.grilleInitiale[i] = new Cellule[m];
-            this.grilleAvant[i] = new Cellule[m];
-            this.grilleApres[i] = new Cellule[m];
-
-            for (int j = 0; j < this.m; j++) {
-                this.grilleInitiale[i][j] = new Cellule();
-                this.grilleInitiale[i][j].setEtat(grille[i][j].getEtat());
-
-                this.grilleAvant[i][j] = new Cellule();
-                this.grilleAvant[i][j].setEtat(grille[i][j].getEtat());
-
-                this.grilleApres[i][j] = new Cellule();
-            }
-        }
+    public ConwaySimulator(Cellule[][] grille, int n, int m, GUISimulator window) {
+        super(grille, n, m, window);
     }
 
     int[] voisinsLigne;
