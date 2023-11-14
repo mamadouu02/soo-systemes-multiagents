@@ -30,10 +30,21 @@ class JeuImmigrationSimulator extends Grille {
         this.nbEtats = nbEtats;
     }
 
+    @Override
+    protected void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleDessin) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                grilleAvant[i][j].setEtat(grilleDessin[i][j].getEtat());
+
+                int etat = grilleAvant[i][j].getEtat();
+                window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.decode("#"+(etat*10)+(etat*10)), 50, 50));
+            }
+        }
+    }
+
     int[] voisinsLigne;
     int[] voisinsColonne;
     int voisinEtatPlus1;
-
     @Override
     public void next() {
         window.reset();
@@ -60,28 +71,12 @@ class JeuImmigrationSimulator extends Grille {
                 }
             }
         }
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                grilleAvant[i][j].setEtat(grilleApres[i][j].getEtat());
-
-                int etat = grilleAvant[i][j].getEtat();
-                window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.decode("#"+(etat*10)+(etat*10)), 50, 50));
-            }
-        }
+    dessiner(grilleAvant, grilleApres);
     }
 
     @Override
     public void restart() {
         window.reset();
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                grilleAvant[i][j].setEtat(grilleInitiale[i][j].getEtat());
-
-                int etat = grilleAvant[i][j].getEtat();
-                window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.decode("#"+(etat*10)+(etat*10)), 50, 50));
-            }
-        }
+        dessiner(grilleAvant, grilleInitiale);
     }
 }

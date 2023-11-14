@@ -38,6 +38,7 @@ public abstract class Grille implements Simulable {
             }
         }
     }
+    protected abstract void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleDessin);
     @Override
     public abstract void next();
 

@@ -112,7 +112,6 @@ class SchellingSimulation implements Simulable {
         }
 
         window.reset();
-
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 grilleAvant[i][j].setEtat(grilleApres[i][j].getEtat());
@@ -134,7 +133,7 @@ class SchellingSimulation implements Simulable {
         while (!(vacantAvant.isEmpty())){
             vacantAvant.remove();
         }
-        
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 grilleAvant[i][j].setEtat(grilleInitiale[i][j].getEtat());
@@ -143,7 +142,6 @@ class SchellingSimulation implements Simulable {
                 if (grilleInitiale[i][j].getEtat() == 0) {
                     vacantAvant.add(new Point(i, j));
                 }
-
 
                 int etat = grilleAvant[i][j].getEtat();
                 if (etat == 0){

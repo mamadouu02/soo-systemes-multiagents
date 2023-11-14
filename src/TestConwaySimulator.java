@@ -32,6 +32,20 @@ class ConwaySimulator extends Grille {
     int voisinVivant;
 
     @Override
+    protected void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleDessin) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                grilleAvant[i][j].setEtat(grilleDessin[i][j].getEtat());
+
+                if (grilleAvant[i][j].getEtat() == 1) {
+                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.BLACK, 50, 50));
+                } else {
+                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.WHITE, 50, 50));
+                }
+            }
+        }
+    }
+    @Override
     public void next() {
         window.reset();
 
@@ -61,34 +75,12 @@ class ConwaySimulator extends Grille {
                 }
             }
         }
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                grilleAvant[i][j].setEtat(grilleApres[i][j].getEtat());
-
-                if (grilleAvant[i][j].getEtat() == 1) {
-                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.BLACK, 50, 50));
-                } else {
-                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.WHITE, 50, 50));
-                }
-            }
-        }
+        dessiner(grilleAvant, grilleApres);
     }
 
     @Override
     public void restart() {
         window.reset();
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                grilleAvant[i][j].setEtat(grilleInitiale[i][j].getEtat());
-
-                if (grilleAvant[i][j].getEtat() == 1) {
-                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.BLACK, 50, 50));
-                } else {
-                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.WHITE, 50, 50));
-                }
-            }
-        }
+        dessiner(grilleAvant, grilleInitiale);
     }
 }
