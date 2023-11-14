@@ -1,7 +1,6 @@
 import java.awt.*;
 
 public class TestBalls {
-
     public static void main(String[] args) {
         Point ball1 = new Point(0, 0);
         Point ball2 = new Point(3, 2);
@@ -67,9 +66,9 @@ class Balls {
         int nbBalls = getNbBalls();
 
         for (int i = 0; i < nbBalls - 1; i++) {
-            s += this.points[i].toString() + ", ";
+            s += this.points[i] + ", ";
         }
 
-        return "[" + s + points[nbBalls - 1].toString() + "]";
+        return "[" + s + points[nbBalls - 1] + "]";
     }
 }

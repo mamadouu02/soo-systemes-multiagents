@@ -27,8 +27,8 @@ class BallsSimulator implements Simulable {
 
     private final Balls balls;
     private Point[] dir;
-    private GUISimulator window;
-    private int width, height;
+    private final GUISimulator window;
+    private final int width, height;
     Color[] colors = { Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN, Color.WHITE };
 
     public BallsSimulator(Balls balls, GUISimulator window) {
