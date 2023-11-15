@@ -5,20 +5,18 @@ public class Cellule {
     private int nbEtats;
 
     public Cellule() {
-        Random random = new Random();
-        setEtat(random.nextInt(2));
-        this.nbEtats = 2;
+        this(2);
     }
 
     public Cellule(int nbEtats) {
         Random random = new Random();
         setEtat(random.nextInt(nbEtats));
-        this.nbEtats = nbEtats;
+        setNbEtat(nbEtats);
     }
 
     public Cellule(int etat, int nbEtats) {
         setEtat(etat);
-        this.nbEtats = nbEtats;
+        setNbEtat(nbEtats);
     }
 
     public int getEtat() {
