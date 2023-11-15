@@ -64,23 +64,18 @@ class Boid {
     }
 }
 
-abstract class CenteredGraphicalElement implements GraphicalElement {
+class Triangle implements GraphicalElement {
     private int posX;
     private int posY;
     private int velX;
     private int velY;
 
-
-    public CenteredGraphicalElement(int var1, int var2, int var3, int var4) {
-        this.posX = var1;
-        this.posY = var2;
-        this.velX = var3;
-        this.velY = var4;
-    }
-
-    public void translate(int var1, int var2) {
-        this.posX += var1;
-        this.posY += var2;
+    static Path2D shape = new Path2D.Double();
+    static {
+        shape.moveTo(0,-3*2);
+        shape.lineTo(-3, 3*2);
+        shape.lineTo(3,3*2);
+        shape.closePath();
     }
 
     public int getPosX() {
@@ -91,30 +86,22 @@ abstract class CenteredGraphicalElement implements GraphicalElement {
         return this.posY;
     }
 
-    public int getVelX(){ return this.velX; }
-    public int getVelY() {
-        return this.velY;
-    }
+    public int getVelX() { return this.velX; }
 
-}
-class Triangle extends CenteredGraphicalElement {
-    static Path2D shape = new Path2D.Double();
-    static {
-        shape.moveTo(0,-3*2);
-        shape.lineTo(-3, 3*2);
-        shape.lineTo(3,3*2);
-        shape.closePath();
-    }
+    public int getVelY() { return this.velY; }
 
     public Triangle(int var1, int var2, int var3, int var4) {
-        super(var1, var2, var3, var4);
+        this.posX = var1;
+        this.posY = var2;
+        this.velX = var3;
+        this.velY = var4;
     }
 
     @Override
     public void paint(Graphics2D g) {
         AffineTransform save = g.getTransform();
-        g.translate(super.getPosX(), super.getPosY());
-        g.rotate(Math.atan((double) super.getVelY()/super.getVelX())*360/(2*Math.PI));
+        g.translate(this.posX, this.posY);
+        g.rotate(Math.atan((double) this.velY/this.velX)*360/(2*Math.PI));
         g.setColor(Color.BLUE);
         g.fill(shape);
         g.draw(shape);
