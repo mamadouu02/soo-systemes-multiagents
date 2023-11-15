@@ -26,6 +26,7 @@ class BallsSimulator implements Simulable {
 
     private final Balls balls;
     private Point[] dir;
+    private Point[] dir_init;
     private final GUISimulator window;
     private final int width, height;
     Color[] colors = { Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN, Color.WHITE };
@@ -33,12 +34,14 @@ class BallsSimulator implements Simulable {
     public BallsSimulator(Balls balls, GUISimulator window) {
         this.balls = new Balls(balls);
         this.dir = new Point[balls.getNbBalls()];
+        this.dir_init = new Point[balls.getNbBalls()];
         this.window = window;
         this.width = window.getPanelWidth();
         this.height = window.getPanelHeight();
 
         for (int i = 0; i < balls.getNbBalls(); i++) {
             this.dir[i] = new Point(10, 10);
+            this.dir_init[i] = new Point(10,10);
         }
     }
 
@@ -78,5 +81,10 @@ class BallsSimulator implements Simulable {
     public void restart() {
         window.reset();
         balls.reInit();
+        for (int i = 0; i < balls.getNbBalls(); i++) {
+            this.dir[i] = new Point(dir_init[i].x, dir_init[i].y);
+            Point point = balls.getPoints()[i];
+            window.addGraphicalElement(new Oval(point.x, point.y, colors[i % colors.length], colors[i % colors.length], 10));
+        }
     }
 }

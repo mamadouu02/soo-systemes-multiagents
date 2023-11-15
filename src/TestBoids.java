@@ -7,20 +7,20 @@ import gui.Simulable;
 public class TestBoids {
 
     public static void main(String[] args) {
-        int length = 500;
+        int height = 500;
         int width = 500;
         int nb = 150;
-        GUISimulator window = new GUISimulator(length, width, Color.WHITE);
+        GUISimulator window = new GUISimulator(height, width, Color.WHITE);
         Boid[] boids = new Boid[nb];
 
         for (int i = 0; i < nb; i++) {
             Random r = new Random();
-            Point pos = new Point(r.nextInt(length), r.nextInt(width));
+            Point pos = new Point(r.nextInt(height), r.nextInt(width));
             Point velocity = new Point(r.nextInt(200), r.nextInt(200));
             boids[i] = new Boid(pos, velocity);
         }
 
-        window.setSimulable(new Boids(boids, nb, window, length, width));
+        window.setSimulable(new Boids(boids, nb, window, height, width));
     }
 }
 
@@ -29,10 +29,10 @@ class Boids implements Simulable {
     private Boid[] boids;
     private Boid[] boidsInitial;
     private int nb;
-    private int length, width;
+    private int height, width;
     private GUISimulator window;
 
-    public Boids(Boid[] boids, int nb, GUISimulator window, int length, int width) {
+    public Boids(Boid[] boids, int nb, GUISimulator window, int height, int width) {
 
         this.boidsInitial = new Boid[nb];
         this.boids = new Boid[nb];
@@ -43,7 +43,7 @@ class Boids implements Simulable {
         }
 
         this.nb = nb;
-        this.length = length;
+        this.height = height;
         this.width = width;
         this.window = window;
     }
