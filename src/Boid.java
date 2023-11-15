@@ -32,4 +32,15 @@ class Boid {
     public void setVelocity(Point velocity) {
         this.velocity = new Point(velocity);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Boid)) {
+            return false;
+        }
+
+        Boid other = (Boid) o;
+        return other.pos.x == this.pos.x && other.pos.y == this.pos.y &&
+                other.velocity.x == this.velocity.x && other.velocity.y == this.velocity.y;
+    }
 }

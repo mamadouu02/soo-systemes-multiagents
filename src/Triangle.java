@@ -10,12 +10,13 @@ class Triangle implements GraphicalElement {
     private int velX;
     private int velY;
 
+    static int size = 3;
     static Path2D shape = new Path2D.Double();
 
     static {
-        shape.moveTo(0, -3*2);
-        shape.lineTo(-3, 3*2);
-        shape.lineTo(3,3*2);
+        shape.moveTo(0, -size*2);
+        shape.lineTo(-size, size*2);
+        shape.lineTo(size,size*2);
         shape.closePath();
     }
 
@@ -46,7 +47,7 @@ class Triangle implements GraphicalElement {
     public void paint(Graphics2D g) {
         AffineTransform save = g.getTransform();
         g.translate(this.posX, this.posY);
-        g.rotate(Math.atan((double) this.velY / this.velX) * 360 / (2 * Math.PI));
+        g.rotate(Math.atan((double) this.velY / this.velX));
         g.setColor(Color.BLUE);
         g.fill(shape);
         g.draw(shape);

@@ -3,36 +3,50 @@ import java.util.Random;
 
 import gui.GUISimulator;
 import gui.Simulable;
+import gui.Rectangle;
 
 public class TestBoids {
 
     public static void main(String[] args) {
-        int height = 500;
-        int width = 500;
-        int nb = 150;
-        GUISimulator window = new GUISimulator(height, width, Color.WHITE);
+        int height = 1901;
+        int width = 901;
+        int nb = 1000;
         Boid[] boids = new Boid[nb];
+        Point pos = new Point(0, 0);
+        Point velocity = new Point(0, 0);
 
         for (int i = 0; i < nb; i++) {
-            Random r = new Random();
-            Point pos = new Point(r.nextInt(height), r.nextInt(width));
-            Point velocity = new Point(r.nextInt(200), r.nextInt(200));
+            boolean bool = true;
+
+            while (bool) {
+                bool = false;
+                Random r = new Random();
+                pos = new Point(r.nextInt(height), r.nextInt(width));
+                velocity = new Point(r.nextInt(50), r.nextInt(50));
+
+                for (int j = 0; j < i; j++) {
+                    if (pos.distance(boids[j].getPos()) < 24) {
+                        bool = true;
+                    }
+                }
+            }
+
             boids[i] = new Boid(pos, velocity);
         }
 
-        window.setSimulable(new Boids(boids, nb, window, height, width));
+        GUISimulator window = new GUISimulator(height, width, Color.WHITE);
+        window.setSimulable(new Boids(boids, nb, window));
     }
 }
 
 class Boids implements Simulable {
     
-    private Boid[] boids;
-    private Boid[] boidsInitial;
-    private int nb;
-    private int height, width;
-    private GUISimulator window;
+    private final Boid[] boids;
+    private final Boid[] boidsInitial;
+    private final int nb;
+    private final GUISimulator window;
 
-    public Boids(Boid[] boids, int nb, GUISimulator window, int height, int width) {
+    public Boids(Boid[] boids, int nb, GUISimulator window) {
 
         this.boidsInitial = new Boid[nb];
         this.boids = new Boid[nb];
@@ -43,12 +57,12 @@ class Boids implements Simulable {
         }
 
         this.nb = nb;
-        this.height = height;
-        this.width = width;
         this.window = window;
     }
 
     private void draw_boids() {
+        window.reset();
+
         for (Boid b : boids) {
             window.addGraphicalElement(new Triangle(b.getPos().x, b.getPos().y, b.getVelocity().x, b.getVelocity().y));
         }
@@ -63,7 +77,7 @@ class Boids implements Simulable {
             }
         }
 
-        pcj = new Point(pcj.x / (nb-1), pcj.y / (nb-1));
+        pcj = new Point(pcj.x / (nb - 1), pcj.y / (nb - 1));
         return new Point((pcj.x - bj.getPos().x) / 100, (pcj.y - bj.getPos().y) / 100);
     }
 
@@ -72,7 +86,7 @@ class Boids implements Simulable {
 
         for (Boid b : boids) {            
             if (!b.equals(bj)) {
-                if (b.getPos().distanceSq(bj.getPos()) < 100) {
+                if (b.getPos().distance(bj.getPos()) < 24) {
                     c = new Point(c.x - (b.getPos().x - bj.getPos().x), c.y - (b.getPos().y - bj.getPos().y));
                 }
             }
@@ -90,13 +104,12 @@ class Boids implements Simulable {
             }
         }
 
-        pvj = new Point(pvj.x / (nb-1), pvj.y / (nb-1));
-        return new Point((pvj.x - bj.getVelocity().x) / 100, (pvj.y - bj.getVelocity().y) / 100);
+        pvj = new Point(pvj.x / (nb - 1), pvj.y / (nb - 1));
+        return new Point((pvj.x - bj.getVelocity().x) / 8, (pvj.y - bj.getVelocity().y) / 8);
     }
 
     @Override
     public void next() {
-        window.reset();
         Point v1, v2, v3;
 
         for (Boid b : boids){
@@ -113,8 +126,6 @@ class Boids implements Simulable {
 
     @Override
     public void restart() {
-        window.reset();
-
         for (int i = 0; i < nb; i++) {
             this.boids[i] = new Boid(boidsInitial[i]);
         }
