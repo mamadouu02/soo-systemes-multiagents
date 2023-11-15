@@ -1,41 +1,41 @@
 import java.awt.*;
 
 import gui.GUISimulator;
-import gui.Simulable;
 import gui.Rectangle;
 
-public class TestConwaySimulator {
-    public static void main(String[] args) {
-        GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
-        Cellule[][] grille = new Cellule[10][10];
+public class TestConway {
 
+    public static void main(String[] args) {
+        Cellule[][] grille = new Cellule[10][10];
+        
         for (int i = 0; i < 10; i++) {
             grille[i] = new Cellule[10];
-
+            
             for (int j = 0; j < 10; j++) {
                 grille[i][j] = new Cellule();
             }
         }
-
-        window.setSimulable(new ConwaySimulator(grille, 10, 10, window));
+        
+        GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
+        window.setSimulable(new Conway(grille, window));
     }
 }
 
-class ConwaySimulator extends Grille {
-
-    public ConwaySimulator(Cellule[][] grille, int n, int m, GUISimulator window) {
-        super(grille, n, m, window);
-    }
-
+class Conway extends Grille {
+    
     int[] voisinsLigne;
     int[] voisinsColonne;
-    int voisinVivant;
+    int voisinsVivant;
+
+    public Conway(Cellule[][] grille, GUISimulator window) {
+        super(grille, window);
+    }
 
     @Override
     protected void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleDessin) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                grilleAvant[i][j].setEtat(grilleDessin[i][j].getEtat());
+                grilleAvant[i][j] = new Cellule(grilleDessin[i][j]);
 
                 if (grilleAvant[i][j].getEtat() == 1) {
                     window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.BLACK, 50, 50));
@@ -45,6 +45,7 @@ class ConwaySimulator extends Grille {
             }
         }
     }
+    
     @Override
     public void next() {
         window.reset();
@@ -54,27 +55,28 @@ class ConwaySimulator extends Grille {
 
             for (int j = 0; j < m; j++) {
                 voisinsColonne = new int[] { (j-1)%m == -1 ? m-1 : (j-1)%m, j%m, (j+1)%m };
-                voisinVivant = 0;
+                voisinsVivant = 0;
 
                 for (int voisinLigne : voisinsLigne) {
                     for (int voisinColonne : voisinsColonne) {
-                        if (!(voisinLigne == i%n && voisinColonne == j%m)) {
+                        if (!(voisinLigne == i % n && voisinColonne == j % m)) {
                             if (grilleAvant[voisinLigne][voisinColonne].getEtat() == 1) {
-                                voisinVivant++;
+                                voisinsVivant++;
                             }
                         }
                     }
                 }
 
-                if (grilleAvant[i][j].getEtat() == 0 && voisinVivant == 3) {
+                if (grilleAvant[i][j].getEtat() == 0 && voisinsVivant == 3) {
                     grilleApres[i][j].setEtat(1);
                 }
 
-                else if (!(grilleAvant[i][j].getEtat() == 1 && (voisinVivant == 2 || voisinVivant == 3))) {
+                else if (!(grilleAvant[i][j].getEtat() == 1 && (voisinsVivant == 2 || voisinsVivant == 3))) {
                     grilleApres[i][j].setEtat(0);
                 }
             }
         }
+
         dessiner(grilleAvant, grilleApres);
     }
 

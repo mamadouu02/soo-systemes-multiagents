@@ -1,33 +1,31 @@
 import java.awt.*;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 import gui.GUISimulator;
 import gui.Simulable;
 import gui.Rectangle;
 
-public class TestSchellingSimulation {
+public class TestSchelling {
+
     public static void main(String[] args) {
-        GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
-        Cellule[][] grille = new Cellule[10][10];
         int nbEtats = 4;
         int K = 2;
-
+        Cellule[][] grille = new Cellule[10][10];
+        
         for (int i = 0; i < 10; i++) {
             grille[i] = new Cellule[10];
-
+            
             for (int j = 0; j < 10; j++) {
                 grille[i][j] = new Cellule(nbEtats);
             }
         }
-
-        window.setSimulable(new SchellingSimulation(grille, 10, 10, nbEtats, K, window));
+        
+        GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
+        window.setSimulable(new Schelling(grille, nbEtats, K, window));
     }
 }
 
-class SchellingSimulation implements Simulable {
+class Schelling implements Simulable {
     private final int n;
     private final int m;
     private final int K;
@@ -38,9 +36,12 @@ class SchellingSimulation implements Simulable {
     private final Queue<Point> tmp = new LinkedList<Point> ();
     private final GUISimulator window;
 
-    public SchellingSimulation(Cellule[][] grille, int n, int m, int nbEtats, int K, GUISimulator window) {
-        this.n = n;
-        this.m = m;
+    int[] voisinsLigne;
+    int[] voisinsColonne;
+
+    public Schelling(Cellule[][] grille, int nbEtats, int K, GUISimulator window) {
+        this.n = grille.length;
+        this.m = grille[0].length;
         this.grilleInitiale = new Cellule[n][m];
         this.grilleAvant = new Cellule[n][m];
         this.grilleApres = new Cellule[n][m];
@@ -53,14 +54,9 @@ class SchellingSimulation implements Simulable {
             this.grilleApres[i] = new Cellule[m];
 
             for (int j = 0; j < this.m; j++) {
-                this.grilleInitiale[i][j] = new Cellule(nbEtats);
-                this.grilleInitiale[i][j].setEtat(grille[i][j].getEtat());
-
-                this.grilleAvant[i][j] = new Cellule(nbEtats);
-                this.grilleAvant[i][j].setEtat(grille[i][j].getEtat());
-
-                this.grilleApres[i][j] = new Cellule(nbEtats);
-                this.grilleApres[i][j].setEtat(grille[i][j].getEtat());
+                this.grilleInitiale[i][j] = new Cellule(grille[i][j]);
+                this.grilleAvant[i][j] = new Cellule(grille[i][j]);
+                this.grilleApres[i][j] = new Cellule(grille[i][j]);
 
                 if (grilleInitiale[i][j].getEtat() == 0) {
                     vacantAvant.add(new Point(i, j));
@@ -69,19 +65,17 @@ class SchellingSimulation implements Simulable {
         }
     }
 
-    int[] voisinsLigne;
-    int[] voisinsColonne;
-
     @Override
     public void next() {
 
         for (int i = 0; i < n; i++) {
-            voisinsLigne = new int[] { (i-1)%n == -1 ? n-1 : (i-1)%n , i%n, (i+1)%n };
+            voisinsLigne = new int[] { (i-1)%n == -1 ? n-1 : (i-1)%n, i%n, (i+1)%n };
 
             for (int j = 0; j < m; j++) {
                 int etat = grilleAvant[i][j].getEtat();
+
                 if (etat != 0) {
-                    voisinsColonne = new int[]{(j - 1) % m == -1 ? m - 1 : (j - 1) % m, j % m, (j + 1) % m};
+                    voisinsColonne = new int[] { (j-1)%m == -1 ? m-1 : (j-1)%m, j%m, (j+1)%m };
                     Set<Integer> couleursDiff = new HashSet<Integer>();
 
                     for (int voisinLigne : voisinsLigne) {
@@ -99,28 +93,29 @@ class SchellingSimulation implements Simulable {
                             grilleApres[i][j].setEtat(0);
                             tmp.add(new Point(i, j));
                             Point nouveau = vacantAvant.remove();
-                            grilleApres[nouveau.x][nouveau.y].setEtat(grilleAvant[i][j].getEtat());
+                            grilleApres[nouveau.x][nouveau.y] = new Cellule(grilleAvant[i][j]);
                         }
                     }
                 }
             }
         }
 
-        while (!tmp.isEmpty()){
+        while (!tmp.isEmpty()) {
             Point point = tmp.remove();
-            vacantAvant.add(new Point(point.x, point.y));
+            vacantAvant.add(new Point(point));
         }
 
         window.reset();
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                grilleAvant[i][j].setEtat(grilleApres[i][j].getEtat());
-
+                grilleAvant[i][j] = new Cellule(grilleApres[i][j]);
                 int etat = grilleAvant[i][j].getEtat();
-                if (etat == 0){
+
+                if (etat == 0) {
                     window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.WHITE, 50, 50));
                 } else {
-                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.decode("#"+(etat*etat)+(etat*etat)), 50, 50));
+                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.decode("#" + (etat * etat) + (etat * etat)), 50, 50));
                 }
             }
         }
@@ -136,15 +131,16 @@ class SchellingSimulation implements Simulable {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                grilleAvant[i][j].setEtat(grilleInitiale[i][j].getEtat());
-                grilleApres[i][j].setEtat(grilleInitiale[i][j].getEtat());
+                grilleAvant[i][j] = new Cellule(grilleInitiale[i][j]);
+                grilleApres[i][j] = new Cellule(grilleInitiale[i][j]);
 
                 if (grilleInitiale[i][j].getEtat() == 0) {
                     vacantAvant.add(new Point(i, j));
                 }
 
                 int etat = grilleAvant[i][j].getEtat();
-                if (etat == 0){
+
+                if (etat == 0) {
                     window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.WHITE, 50, 50));
                 } else {
                     window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.decode("#" + (etat * etat) + (etat * etat)), 50, 50));

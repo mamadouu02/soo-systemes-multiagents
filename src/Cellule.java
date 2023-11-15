@@ -19,6 +19,10 @@ public class Cellule {
         setNbEtat(nbEtats);
     }
 
+    public Cellule(Cellule other) {
+        this(other.getEtat(), other.getNbEtat());
+    }
+
     public int getEtat() {
         return this.etat;
     }
@@ -37,6 +41,6 @@ public class Cellule {
 
     @Override
     public String toString() {
-        return "Etat :" + this.etat;
+        return "Etat : " + this.etat;
     }
 }

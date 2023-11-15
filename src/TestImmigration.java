@@ -1,32 +1,36 @@
 import java.awt.*;
 
 import gui.GUISimulator;
-import gui.Simulable;
 import gui.Rectangle;
 
-public class TestJeuImmigrationSimulator {
-    public static void main(String[] args) {
-        GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
-        Cellule[][] grille = new Cellule[10][10];
-        int nbEtats = 5;
+public class TestImmigration {
 
+    public static void main(String[] args) {
+        int nbEtats = 5;
+        Cellule[][] grille = new Cellule[10][10];
+        
         for (int i = 0; i < 10; i++) {
             grille[i] = new Cellule[10];
-
+            
             for (int j = 0; j < 10; j++) {
                 grille[i][j] = new Cellule(nbEtats);
             }
         }
-
-        window.setSimulable(new JeuImmigrationSimulator(grille, 10, 10, nbEtats, window));
+        
+        GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
+        window.setSimulable(new Immigration(grille, nbEtats, window));
     }
 }
 
-class JeuImmigrationSimulator extends Grille {
+class Immigration extends Grille {
     private final int nbEtats;
 
-    public JeuImmigrationSimulator(Cellule[][] grille, int n, int m, int nbEtats, GUISimulator window) {
-        super(grille, n, m, window);
+    int[] voisinsLigne;
+    int[] voisinsColonne;
+    int voisinEtatPlus1;
+
+    public Immigration(Cellule[][] grille, int nbEtats, GUISimulator window) {
+        super(grille, window);
         this.nbEtats = nbEtats;
     }
 
@@ -34,17 +38,13 @@ class JeuImmigrationSimulator extends Grille {
     protected void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleDessin) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                grilleAvant[i][j].setEtat(grilleDessin[i][j].getEtat());
-
+                grilleAvant[i][j] = new Cellule(grilleDessin[i][j]);
                 int etat = grilleAvant[i][j].getEtat();
-                window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.decode("#"+(etat*10)+(etat*10)), 50, 50));
+                window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.decode("#" + (etat * 10) + (etat * 10)), 50, 50));
             }
         }
     }
 
-    int[] voisinsLigne;
-    int[] voisinsColonne;
-    int voisinEtatPlus1;
     @Override
     public void next() {
         window.reset();
@@ -59,18 +59,20 @@ class JeuImmigrationSimulator extends Grille {
 
                 for (int voisinLigne : voisinsLigne) {
                     for (int voisinColonne : voisinsColonne) {
-                        if (!(voisinLigne == i%n && voisinColonne == j%m)) {
-                            if (grilleAvant[voisinLigne][voisinColonne].getEtat() == (etat+1)%nbEtats) {
+                        if (!(voisinLigne == i % n && voisinColonne == j % m)) {
+                            if (grilleAvant[voisinLigne][voisinColonne].getEtat() == (etat+1) % nbEtats) {
                                 voisinEtatPlus1++;
                             }
                         }
                     }
                 }
+
                 if (voisinEtatPlus1 >= 3) {
-                    grilleApres[i][j].setEtat((etat+1)%nbEtats);
+                    grilleApres[i][j].setEtat((etat + 1) % nbEtats);
                 }
             }
         }
+        
     dessiner(grilleAvant, grilleApres);
     }
 

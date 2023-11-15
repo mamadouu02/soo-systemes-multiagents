@@ -1,6 +1,7 @@
 import java.awt.*;
 
 public class TestBalls {
+
     public static void main(String[] args) {
         Point ball1 = new Point(0, 0);
         Point ball2 = new Point(3, 2);
@@ -26,12 +27,16 @@ class Balls {
         setPoints(points);
     }
 
-    public Balls(Balls balls) {
-        setPoints(balls.getPoints());
+    public Balls(Balls other) {
+        this(other.getPoints());
     }
 
     public Point[] getPoints() {
         return this.points;
+    }
+
+    public int getNbBalls() {
+        return this.points.length;
     }
 
     public void setPoints(Point[] points) {
@@ -42,10 +47,6 @@ class Balls {
             this.points[i] = new Point(points[i]);
             this.posInit[i] = new Point(points[i]);
         }
-    }
-
-    public int getNbBalls() {
-        return this.points.length;
     }
 
     public void translate(int dx, int dy) {
