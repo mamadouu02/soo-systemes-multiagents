@@ -11,15 +11,15 @@ public class TestSchelling {
         int nbEtats = 4;
         int K = 2;
         Cellule[][] grille = new Cellule[10][10];
-        
+
         for (int i = 0; i < 10; i++) {
             grille[i] = new Cellule[10];
-            
+
             for (int j = 0; j < 10; j++) {
                 grille[i][j] = new Cellule(nbEtats);
             }
         }
-        
+
         GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
         window.setSimulable(new Schelling(grille, nbEtats, K, window));
     }
@@ -32,8 +32,8 @@ class Schelling implements Simulable {
     private final Cellule[][] grilleInitiale;
     private final Cellule[][] grilleAvant;
     private final Cellule[][] grilleApres;
-    private final Queue<Point> vacantAvant = new LinkedList<Point> ();
-    private final Queue<Point> tmp = new LinkedList<Point> ();
+    private final Queue<Point> vacantAvant = new LinkedList<Point>();
+    private final Queue<Point> tmp = new LinkedList<Point>();
     private final GUISimulator window;
 
     int[] voisinsLigne;
@@ -69,19 +69,20 @@ class Schelling implements Simulable {
     public void next() {
 
         for (int i = 0; i < n; i++) {
-            voisinsLigne = new int[] { (i-1)%n == -1 ? n-1 : (i-1)%n, i%n, (i+1)%n };
+            voisinsLigne = new int[] { (i - 1) % n == -1 ? n - 1 : (i - 1) % n, i % n, (i + 1) % n };
 
             for (int j = 0; j < m; j++) {
                 int etat = grilleAvant[i][j].getEtat();
 
                 if (etat != 0) {
-                    voisinsColonne = new int[] { (j-1)%m == -1 ? m-1 : (j-1)%m, j%m, (j+1)%m };
+                    voisinsColonne = new int[] { (j - 1) % m == -1 ? m - 1 : (j - 1) % m, j % m, (j + 1) % m };
                     Set<Integer> couleursDiff = new HashSet<Integer>();
 
                     for (int voisinLigne : voisinsLigne) {
                         for (int voisinColonne : voisinsColonne) {
                             if (!(voisinLigne == i && voisinColonne == j)) {
-                                if (grilleAvant[voisinLigne][voisinColonne].getEtat() != etat && grilleAvant[voisinLigne][voisinColonne].getEtat() != 0) {
+                                if (grilleAvant[voisinLigne][voisinColonne].getEtat() != etat
+                                        && grilleAvant[voisinLigne][voisinColonne].getEtat() != 0) {
                                     couleursDiff.add(grilleAvant[voisinLigne][voisinColonne].getEtat());
                                 }
                             }
@@ -115,7 +116,8 @@ class Schelling implements Simulable {
                 if (etat == 0) {
                     window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.WHITE, 50, 50));
                 } else {
-                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.decode("#" + (etat * etat) + (etat * etat)), 50, 50));
+                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK,
+                            Color.decode("#" + (etat * etat) + (etat * etat)), 50, 50));
                 }
             }
         }
@@ -125,7 +127,7 @@ class Schelling implements Simulable {
     public void restart() {
         window.reset();
 
-        while (!(vacantAvant.isEmpty())){
+        while (!(vacantAvant.isEmpty())) {
             vacantAvant.remove();
         }
 
@@ -143,7 +145,8 @@ class Schelling implements Simulable {
                 if (etat == 0) {
                     window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.WHITE, 50, 50));
                 } else {
-                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.decode("#" + (etat * etat) + (etat * etat)), 50, 50));
+                    window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK,
+                            Color.decode("#" + (etat * etat) + (etat * etat)), 50, 50));
                 }
             }
         }

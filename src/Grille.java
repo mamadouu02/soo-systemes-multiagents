@@ -2,6 +2,7 @@ import gui.GUISimulator;
 import gui.Simulable;
 
 public abstract class Grille implements Simulable {
+
     protected int n;
     protected int m;
     protected Cellule[][] grilleInitiale;
@@ -31,7 +32,7 @@ public abstract class Grille implements Simulable {
     }
 
     protected abstract void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleDessin);
-    
+
     @Override
     public abstract void next();
 

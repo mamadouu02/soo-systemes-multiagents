@@ -7,22 +7,22 @@ public class TestConway {
 
     public static void main(String[] args) {
         Cellule[][] grille = new Cellule[10][10];
-        
+
         for (int i = 0; i < 10; i++) {
             grille[i] = new Cellule[10];
-            
+
             for (int j = 0; j < 10; j++) {
                 grille[i][j] = new Cellule();
             }
         }
-        
+
         GUISimulator window = new GUISimulator(500, 500, Color.WHITE);
         window.setSimulable(new Conway(grille, window));
     }
 }
 
 class Conway extends Grille {
-    
+
     int[] voisinsLigne;
     int[] voisinsColonne;
     int voisinsVivant;
@@ -45,16 +45,16 @@ class Conway extends Grille {
             }
         }
     }
-    
+
     @Override
     public void next() {
         window.reset();
 
         for (int i = 0; i < n; i++) {
-            voisinsLigne = new int[] { (i-1)%n == -1 ? n-1 : (i-1)%n , i%n, (i+1)%n };
+            voisinsLigne = new int[] { (i - 1) % n == -1 ? n - 1 : (i - 1) % n, i % n, (i + 1) % n };
 
             for (int j = 0; j < m; j++) {
-                voisinsColonne = new int[] { (j-1)%m == -1 ? m-1 : (j-1)%m, j%m, (j+1)%m };
+                voisinsColonne = new int[] { (j - 1) % m == -1 ? m - 1 : (j - 1) % m, j % m, (j + 1) % m };
                 voisinsVivant = 0;
 
                 for (int voisinLigne : voisinsLigne) {

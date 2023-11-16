@@ -41,7 +41,7 @@ class BallsSimulator implements Simulable {
 
         for (int i = 0; i < balls.getNbBalls(); i++) {
             this.dir[i] = new Point(10, 10);
-            this.dir_init[i] = new Point(10,10);
+            this.dir_init[i] = new Point(10, 10);
         }
     }
 
@@ -81,8 +81,9 @@ class BallsSimulator implements Simulable {
     public void restart() {
         window.reset();
         balls.reInit();
+
         for (int i = 0; i < balls.getNbBalls(); i++) {
-            this.dir[i] = new Point(dir_init[i].x, dir_init[i].y);
+            this.dir[i].setLocation(dir_init[i]);
             Point point = balls.getPoints()[i];
             window.addGraphicalElement(new Oval(point.x, point.y, colors[i % colors.length], colors[i % colors.length], 10));
         }
