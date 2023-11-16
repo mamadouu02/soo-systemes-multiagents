@@ -19,26 +19,14 @@
 #   -sourcepath : répertoire dans lequel sont cherchés les .java
 #   -classpath : répertoire dans lequel sont cherchées les classes compilées (.class et .jar)
 
-JC = javac
-DOCC = javadoc
-LATEXC = pdflatex
-PROG ?= Invader
+all: runTestInvader 
 
-BINDIR = bin
-DOCDIR = doc
-LIBDIR = dir
-SRCDIR = src
+compileTestInvader:
+	javac -d bin -classpath lib/gui.jar src/TestInvader.java
 
-all: Test$(PROG)
-
-compile:
-	$(JC) -d $(BINDIR) -classpath $(LIBDIR)/gui.jar src/Test$(PROG).java
-
-run: compile
-	java -classpath $(BINDIR):$(LIBDIR)/gui.jar Test$(PROG)
-
-doc:
-	$(DOCC) $(SRCDIR) -d $(DOCDIR)
+runTestInvader: compileTestInvader
+	java -classpath bin:lib/gui.jar TestInvader
 
 clean:
-	rm -rf $(BINDIR)/
+	rm -rf bin/
+
