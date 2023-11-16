@@ -4,7 +4,7 @@ import java.util.Random;
 import gui.GUISimulator;
 import gui.Simulable;
 
-public class TestBoids {
+public class TestBoidsSimulator {
 
     public static void main(String[] args) {
         int height = 500;
@@ -22,11 +22,11 @@ public class TestBoids {
         }
 
         GUISimulator window = new GUISimulator(height, width, Color.WHITE);
-        window.setSimulable(new Boids(boids, nb, window, height, width));
+        window.setSimulable(new BoidsSimulator(boids, nb, window, height, width));
     }
 }
 
-class Boids implements Simulable {
+class BoidsSimulator implements Simulable {
 
     private final Boid[] boids;
     private final Boid[] boidsInitial;
@@ -35,7 +35,7 @@ class Boids implements Simulable {
     private final int width;
     private final GUISimulator window;
 
-    public Boids(Boid[] boids, int nb, GUISimulator window, int height, int width) {
+    public BoidsSimulator(Boid[] boids, int nb, GUISimulator window, int height, int width) {
         this.boidsInitial = new Boid[nb];
         this.boids = new Boid[nb];
 
