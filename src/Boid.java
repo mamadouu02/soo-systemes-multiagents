@@ -36,11 +36,11 @@ class Boid {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Boid) {
-            Boid other = (Boid) o;
-            return this.pos.equals(other.pos) && this.velocity.equals(other.velocity);
+        if (!(o instanceof Boid)) {
+            return false;
         }
 
-        return false;
+        Boid other = (Boid) o;
+        return this.pos.equals(other.pos) && this.velocity.equals(other.velocity);
     }
 }
