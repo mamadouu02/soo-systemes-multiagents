@@ -1,10 +1,12 @@
 package Cellule;
+
 import java.awt.*;
 
 import gui.GUISimulator;
 import gui.Rectangle;
 
 public class Immigration extends Grille {
+
     private final int nbEtats;
 
     int voisinEtatPlus1;

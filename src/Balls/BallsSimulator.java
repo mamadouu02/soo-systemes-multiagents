@@ -1,4 +1,5 @@
 package Balls;
+
 import java.awt.*;
 
 import gui.GUISimulator;
@@ -56,7 +57,8 @@ public class BallsSimulator implements Simulable {
                 dir[i].y *= -1;
             }
 
-            window.addGraphicalElement(new Oval(point.x, point.y, colors[i % colors.length], colors[i % colors.length], 10));
+            window.addGraphicalElement(
+                    new Oval(point.x, point.y, colors[i % colors.length], colors[i % colors.length], 10));
         }
     }
 
@@ -68,7 +70,8 @@ public class BallsSimulator implements Simulable {
         for (int i = 0; i < balls.getNbBalls(); i++) {
             this.dir[i].setLocation(dir_init[i]);
             Point point = balls.getPoints()[i];
-            window.addGraphicalElement(new Oval(point.x, point.y, colors[i % colors.length], colors[i % colors.length], 10));
+            window.addGraphicalElement(
+                    new Oval(point.x, point.y, colors[i % colors.length], colors[i % colors.length], 10));
         }
     }
 }

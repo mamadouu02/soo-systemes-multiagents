@@ -1,6 +1,7 @@
 package Event;
+
 public abstract class Event {
-    
+
     private long date;
 
     public Event(long date) {

@@ -1,4 +1,5 @@
 package Event;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
@@ -13,7 +14,7 @@ public class EventManager {
         this.events = new HashMap<>();
     }
 
-    public void next(){
+    public void next() {
         this.currentDate++;
 
         if (events.containsKey(this.currentDate)) {

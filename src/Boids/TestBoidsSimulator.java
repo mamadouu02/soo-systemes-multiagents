@@ -1,4 +1,5 @@
 package Boids;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -25,4 +26,3 @@ public class TestBoidsSimulator {
         window.setSimulable(new BoidsSimulator(boids, nb, window, height, width));
     }
 }
-

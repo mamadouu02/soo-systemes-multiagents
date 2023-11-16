@@ -1,12 +1,13 @@
 package Cellule;
+
 import java.awt.*;
 import java.util.*;
 
 import gui.GUISimulator;
-import gui.Simulable;
 import gui.Rectangle;
 
 public class Schelling extends Grille {
+    
     private final int K;
     private final Queue<Point> vacantAvant = new LinkedList<Point>();
     private final Queue<Point> tmp = new LinkedList<Point>();
@@ -25,16 +26,19 @@ public class Schelling extends Grille {
     }
 
     @Override
-    public void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleApres) {
-            dessiner(grilleAvant, grilleApres, this.grilleInitiale, this.vacantAvant);
+    public void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleDessin) {
+        dessiner(grilleAvant, this.grilleApres, grilleDessin, this.vacantAvant);
     }
 
-    public void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleApres, Cellule[][] grilleDessin, Queue<Point> vacantAvant) {
+    public void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleApres, Cellule[][] grilleDessin,
+            Queue<Point> vacantAvant) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
 
                 grilleAvant[i][j] = new Cellule(grilleDessin[i][j]);
-                if (grilleApres != null) { grilleApres[i][j] = new Cellule(grilleDessin[i][j]); }
+                if (grilleApres != null) {
+                    grilleApres[i][j] = new Cellule(grilleDessin[i][j]);
+                }
 
                 if (vacantAvant != null) {
                     if (grilleDessin[i][j].getEtat() == 0) {

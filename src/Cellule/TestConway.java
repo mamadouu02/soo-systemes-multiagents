@@ -1,4 +1,5 @@
 package Cellule;
+
 import java.awt.*;
 
 import gui.GUISimulator;

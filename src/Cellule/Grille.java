@@ -1,4 +1,5 @@
 package Cellule;
+
 import gui.GUISimulator;
 import gui.Simulable;
 

@@ -1,6 +1,7 @@
 package Event;
+
 public class MessageEvent extends Event {
-    
+
     private String message;
 
     public MessageEvent(int date, String message) {
