@@ -6,8 +6,6 @@ import gui.Rectangle;
 
 public class Conway extends Grille {
 
-    int[] voisinsLigne;
-    int[] voisinsColonne;
     int voisinsVivant;
 
     public Conway(Cellule[][] grille, GUISimulator window) {

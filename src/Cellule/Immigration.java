@@ -7,8 +7,6 @@ import gui.Rectangle;
 public class Immigration extends Grille {
     private final int nbEtats;
 
-    int[] voisinsLigne;
-    int[] voisinsColonne;
     int voisinEtatPlus1;
 
     public Immigration(Cellule[][] grille, int nbEtats, GUISimulator window) {
