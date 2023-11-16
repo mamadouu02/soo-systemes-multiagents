@@ -1,12 +1,13 @@
+package Boids;
 import java.awt.*;
 
-class Boid {
+public class Boid {
 
     private Point pos;
     private Point velocity;
 
     public Boid() {
-        this(new Point(0, 0), new Point(0, 0));
+        this(new Point(), new Point());
     }
 
     public Boid(Point pos, Point velocity) {

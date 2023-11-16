@@ -1,3 +1,4 @@
+package Cellule;
 import java.util.Random;
 
 public class Cellule {

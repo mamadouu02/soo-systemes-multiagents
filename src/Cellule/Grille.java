@@ -1,3 +1,4 @@
+package Cellule;
 import gui.GUISimulator;
 import gui.Simulable;
 
@@ -37,5 +38,8 @@ public abstract class Grille implements Simulable {
     public abstract void next();
 
     @Override
-    public abstract void restart();
+    public void restart() {
+        window.reset();
+        dessiner(grilleAvant, grilleInitiale);
+    }
 }

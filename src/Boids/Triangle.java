@@ -1,3 +1,4 @@
+package Boids;
 import java.awt.*;
 import java.awt.geom.*;
 
