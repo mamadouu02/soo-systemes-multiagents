@@ -13,7 +13,7 @@ public class BallsSimulator implements Simulable {
     private Point[] dir_init;
     private final GUISimulator window;
     private final int width, height;
-    Color[] colors = { Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN, Color.WHITE };
+    private Color[] colors = { Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN, Color.WHITE };
 
     public BallsSimulator(Balls balls, GUISimulator window) {
         this.balls = new Balls(balls);
