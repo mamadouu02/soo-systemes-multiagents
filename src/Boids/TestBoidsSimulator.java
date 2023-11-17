@@ -18,7 +18,7 @@ public class TestBoidsSimulator {
         for (int i = 0; i < nb; i++) {
             Random r = new Random();
             pos.setLocation(r.nextInt(width), r.nextInt(height));
-            velocity.setLocation(50, 0);
+            velocity.setLocation(50, -50);
             boids[i] = new Boid(pos, velocity);
         }
 
