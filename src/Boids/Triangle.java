@@ -49,7 +49,7 @@ class Triangle implements GraphicalElement {
     public void paint(Graphics2D g) {
         AffineTransform save = g.getTransform();
         g.translate(this.posX, this.posY);
-        g.rotate(Math.atan2(this.velX, this.velY));
+        g.rotate(Math.atan2(this.velX, -this.velY));
         g.setColor(Color.BLUE);
         g.fill(shape);
         g.draw(shape);
