@@ -10,9 +10,7 @@ public abstract class Grille implements Simulable {
     protected Cellule[][] grilleInitiale;
     protected Cellule[][] grilleAvant;
     protected Cellule[][] grilleApres;
-
     protected GUISimulator window;
-
     protected int[] voisinsLigne;
     protected int[] voisinsColonne;
 

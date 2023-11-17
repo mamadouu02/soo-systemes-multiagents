@@ -12,8 +12,8 @@ class Triangle implements GraphicalElement {
     private int velX;
     private int velY;
 
-    static int size = 3;
-    static Path2D shape = new Path2D.Double();
+    private static int size = 3;
+    private static Path2D shape = new Path2D.Double();
 
     static {
         shape.moveTo(0, -size * 2);

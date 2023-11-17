@@ -7,7 +7,7 @@ import gui.Rectangle;
 
 public class Conway extends Grille {
 
-    int voisinsVivant;
+    private int voisinsVivant;
 
     public Conway(Cellule[][] grille, GUISimulator window) {
         super(grille, window);
