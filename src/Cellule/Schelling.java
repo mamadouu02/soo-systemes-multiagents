@@ -9,7 +9,11 @@ import gui.Rectangle;
 public class Schelling extends Grille {
     
     private final int K;
+
+    // Une file des habitations actuellement libres.
     private final Queue<Point> vacantAvant = new LinkedList<Point>();
+
+    // Une file des habitations qu'on va rendre libre à l'état d'après (après un next).
     private final Queue<Point> tmp = new LinkedList<Point>();
 
     public Schelling(Cellule[][] grille, int nbEtats, int K, GUISimulator window) {
@@ -68,6 +72,9 @@ public class Schelling extends Grille {
 
                 if (etat != 0) {
                     voisinsColonne = new int[] { (j - 1) % m == -1 ? m - 1 : (j - 1) % m, j % m, (j + 1) % m };
+
+                    // Un ensemble de couleurs distinctes pour compter le nombre de couleurs différentes sur les
+                    // voisins d'une cellule.
                     Set<Integer> couleursDiff = new HashSet<Integer>();
 
                     for (int voisinLigne : voisinsLigne) {
@@ -81,7 +88,7 @@ public class Schelling extends Grille {
                         }
                     }
 
-                    if (couleursDiff.size() >= K) {
+                    if (couleursDiff.size() > K) {
                         if (!vacantAvant.isEmpty()) {
                             grilleApres[i][j].setEtat(0);
                             tmp.add(new Point(i, j));
@@ -93,6 +100,7 @@ public class Schelling extends Grille {
             }
         }
 
+        // On vide tmp pour remplir VacantAvant, correspondant donc aux logements vacants actuels.
         while (!tmp.isEmpty()) {
             Point point = tmp.remove();
             vacantAvant.add(new Point(point));
@@ -105,6 +113,7 @@ public class Schelling extends Grille {
 
     @Override
     public void restart() {
+
         while (!(vacantAvant.isEmpty())) {
             vacantAvant.remove();
         }

@@ -36,6 +36,7 @@ public class Boid {
         this.velocity = new Point(velocity);
     }
 
+    // Redéfiniton de la méthode equals de la classe Object.
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Boid)) {

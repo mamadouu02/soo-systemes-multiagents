@@ -15,6 +15,7 @@ class Triangle implements GraphicalElement {
     private static int size = 3;
     private static Path2D shape = new Path2D.Double();
 
+    // shape correspond ici à un triangle.
     static {
         shape.moveTo(0, -size * 2);
         shape.lineTo(-size, size * 2);
@@ -45,6 +46,8 @@ class Triangle implements GraphicalElement {
         this.velY = velY;
     }
 
+    // Redéfinition de la méthode paint de GraphicalElement pour dessiner un triangle en prenant en compte sa
+    // position sur g et sa direction.
     @Override
     public void paint(Graphics2D g) {
         AffineTransform save = g.getTransform();

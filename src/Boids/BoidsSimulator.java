@@ -77,6 +77,7 @@ public class BoidsSimulator implements Simulable {
         return new Point((pvj.x - bj.getVelocity().x) / 8, (pvj.y - bj.getVelocity().y) / 8);
     }
 
+    //Règles en plus des 3 principales permettant aux boids de ne pas sortir de l'écran.
     public void bound_position(Boid b) {
         if (b.getPos().x < 0) {
             b.getVelocity().x = 10;

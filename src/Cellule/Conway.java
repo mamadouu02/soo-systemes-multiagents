@@ -19,6 +19,7 @@ public class Conway extends Grille {
             for (int j = 0; j < m; j++) {
                 grilleAvant[i][j] = new Cellule(grilleDessin[i][j]);
 
+                // On ajoute la cellule sous forme d'un rectangle de couleur différente (noir ou blanc)  selon son état.
                 if (grilleAvant[i][j].getEtat() == 1) {
                     window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.BLACK, 50, 50));
                 } else {

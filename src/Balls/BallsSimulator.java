@@ -65,6 +65,8 @@ public class BallsSimulator implements Simulable {
     @Override
     public void restart() {
         window.reset();
+
+        // On réinitialise les postions des balls.
         balls.reInit();
 
         for (int i = 0; i < balls.getNbBalls(); i++) {

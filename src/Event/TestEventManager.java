@@ -1,7 +1,8 @@
 package Event;
 
 public class TestEventManager {
-    
+
+    //Test de l'annexe du sujet.
     public static void main(String[] args) throws InterruptedException {
         EventManager manager = new EventManager();
 

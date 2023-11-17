@@ -8,6 +8,9 @@ import java.util.LinkedList;
 public class EventManager {
 
     private long currentDate;
+
+    // On choisit une table de hachage pour gérer les évènements : pour chaque date (un long) est associée
+    // une file d'évènements qui doivent s'éxécuter à cette date.
     private final Map<Long, Queue<Event>> events;
 
     public EventManager() {
@@ -21,11 +24,13 @@ public class EventManager {
             Queue<Event> file = events.get(this.currentDate);
             Event e;
 
+            // On vide et éxécute la file d'évènements pour la date voulue.
             while (!file.isEmpty()) {
                 e = file.remove();
                 e.execute();
             }
 
+            // Plus aucun évènement attendu à cette date, on peut ainsi supprimer la clé de la table de hachage.
             events.remove(this.currentDate);
         }
     }

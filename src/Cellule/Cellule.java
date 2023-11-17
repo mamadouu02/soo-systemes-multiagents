@@ -12,6 +12,7 @@ public class Cellule {
     }
 
     public Cellule(int nbEtats) {
+        //La cellule prend un état au hasard parmi ceux disponibles.
         Random random = new Random();
         setEtat(random.nextInt(nbEtats));
         setNbEtat(nbEtats);
