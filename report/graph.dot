@@ -14,27 +14,27 @@ Cellule        [shape = record, label = "{ Cellule | - nbEtats : int\l - etat : 
 Conway         [shape = record, label = "{ Conway | - voisinsVivant : int\l|# dessiner(Cellule[][], Cellule[][]) : void\l + next() : void\l }"];
 Event          [shape = record, label = "{ Event\n\{abstract\} | - date : long\l|+ execute() : void \{abstract\}\l + getDate() : long\l }"];
 EventManager   [shape = record, label = "{ EventManager | - currentDate : long\l - events : Map\<Long, Queue\<Event\>\>\l|+ addEvent(Event) : void\l + next() : void\l + isFinished() : boolean\l + restart() : void\l }"];
-Grille         [shape = record, label = "{ Grille\n\{abstract\} | # window : GUISimulator\l # grilleInitiale : Cellule[][]\l # grilleAvant : Cellule[][]\l # m : int\l # voisinsColonne : int[]\l # grilleApres : Cellule[][]\l # voisinsLigne : int[]\l # n : int\l|+ next() : void \{abstract\}\l + restart() : void\l # dessiner(Cellule[][], Cellule[][]) : void \{abstract\}\l }"];
+Grille         [shape = record, label = "{ Grille\n\{abstract\} | # window : GUISimulator\l # grilleInitiale : Cellule[][]\l # grilleAvant : Cellule[][]\l # m : int\l # voisinsColonne : int[]\l # grilleApres : Cellule[][]\l # voisinsLigne : int[]\l # n : int\l|+ next() : void \{abstract\}\l + restart() : void\l # dessiner(Cellule[][], Cellule[][]) : void \{abstract\}\l - hexColor(int) : String\l }"];
 Immigration    [shape = record, label = "{ Immigration | - voisinEtatPlus1 : int\l - nbEtats : int\l|# dessiner(Cellule[][], Cellule[][]) : void\l + next() : void\l }"];
 MessageEvent   [shape = record, label = "{ MessageEvent | - message : String\l|+ execute() : void\l }"];
 Schelling      [shape = record, label = "{ Schelling | - K : int\l - vacantAvant : Queue\<Point\>\l - tmp : Queue\<Point\>\l|+ next() : void\l + restart() : void\l + dessiner(Cellule[][], Cellule[][]) : void\l + dessiner(Cellule[][], Cellule[][], Cellule[][], Queue\<Point\>) : void\l }"];
 Simulable      [shape = record, label = "{ \<\<interface\>\>\nSimulable | + selectedItem(String) : void\l + restart() : void\l + next() : void\l }"];
 
-BallsSimulator -> Balls          [color = "#000000", style = solid, arrowtail = none    , arrowhead = vee     , taillabel = "", label = "", headlabel = ""];
+BallsSimulator -> Balls          [color = "#000000", style = solid, arrowtail = none    , arrowhead = none     , taillabel = "", label = "", headlabel = ""];
 BallsSimulator -> Balls          [color = "#000000", style = solid , arrowtail = none , arrowhead = none     , taillabel = "", label = "", headlabel = ""];
-BallsSimulator -> Simulable      [color = "#000000", style = dashed, arrowtail = none    , arrowhead = normal  , taillabel = "", label = "", headlabel = ""];
-BoidsSimulator -> Boid           [color = "#000000", style = solid, arrowtail = none    , arrowhead = vee     , taillabel = "", label = "", headlabel = ""];
-BoidsSimulator -> Boid           [color = "#000000", style = solid , arrowtail = none , arrowhead = vee     , taillabel = "", label = "", headlabel = ""];
-BoidsSimulator -> Simulable      [color = "#000000", style = dashed, arrowtail = none    , arrowhead = normal  , taillabel = "", label = "", headlabel = ""];
-Conway         -> Cellule        [color = "#000000", style = solid, arrowtail = none    , arrowhead = vee     , taillabel = "", label = "", headlabel = ""];
+BallsSimulator -> Simulable      [color = "#000000", style = dashed, arrowtail = none    , arrowhead = empty  , taillabel = "", label = "", headlabel = ""];
+BoidsSimulator -> Boid           [color = "#000000", style = solid, arrowtail = none    , arrowhead = none     , taillabel = "", label = "", headlabel = ""];
+BoidsSimulator -> Boid           [color = "#000000", style = solid , arrowtail = none , arrowhead = none     , taillabel = "", label = "", headlabel = ""];
+BoidsSimulator -> Simulable      [color = "#000000", style = dashed, arrowtail = none    , arrowhead = empty  , taillabel = "", label = "", headlabel = ""];
+Conway         -> Cellule        [color = "#000000", style = solid, arrowtail = none    , arrowhead = none     , taillabel = "", label = "", headlabel = ""];
 Conway         -> Grille         [color = "#000000", style = solid , arrowtail = none    , arrowhead = empty  , taillabel = "", label = "", headlabel = ""];
-Grille         -> Cellule        [color = "#000000", style = solid, arrowtail = none    , arrowhead = vee     , taillabel = "", label = "", headlabel = ""];
-Grille         -> Cellule        [color = "#000000", style = solid , arrowtail = none , arrowhead = vee     , taillabel = "", label = "", headlabel = ""];
-Grille         -> Simulable      [color = "#000000", style = dashed, arrowtail = none    , arrowhead = normal  , taillabel = "", label = "", headlabel = ""];
-Immigration    -> Cellule        [color = "#000000", style = solid, arrowtail = none    , arrowhead = vee     , taillabel = "", label = "", headlabel = ""];
+Grille         -> Cellule        [color = "#000000", style = solid, arrowtail = none    , arrowhead = none     , taillabel = "", label = "", headlabel = ""];
+Grille         -> Cellule        [color = "#000000", style = solid , arrowtail = none , arrowhead = none     , taillabel = "", label = "", headlabel = ""];
+Grille         -> Simulable      [color = "#000000", style = dashed, arrowtail = none    , arrowhead = empty  , taillabel = "", label = "", headlabel = ""];
+Immigration    -> Cellule        [color = "#000000", style = solid, arrowtail = none    , arrowhead = none     , taillabel = "", label = "", headlabel = ""];
 Immigration    -> Grille         [color = "#000000", style = solid , arrowtail = none    , arrowhead = empty  , taillabel = "", label = "", headlabel = ""];
-MessageEvent   -> Event          [color = "#000000", style = solid , arrowtail = none    , arrowhead = normal  , taillabel = "", label = "", headlabel = ""];
-Schelling      -> Cellule        [color = "#000000", style = solid, arrowtail = none    , arrowhead = vee     , taillabel = "", label = "", headlabel = ""];
+MessageEvent   -> Event          [color = "#000000", style = solid , arrowtail = none    , arrowhead = empty  , taillabel = "", label = "", headlabel = ""];
+Schelling      -> Cellule        [color = "#000000", style = solid, arrowtail = none    , arrowhead = none     , taillabel = "", label = "", headlabel = ""];
 Schelling      -> Grille         [color = "#000000", style = solid , arrowtail = none    , arrowhead = empty  , taillabel = "", label = "", headlabel = ""];
 
 }

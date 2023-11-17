@@ -8,21 +8,14 @@
 \usepackage{numprint}
 \usepackage{parskip}
 \usepackage[margin=2.5cm]{geometry}
-
-\usepackage{amsmath}
-\usepackage{mathrsfs}
-\usepackage{amssymb}
-\usepackage{amsfonts}
-\usepackage{amsthm}
-\usepackage{stmaryrd}
-\usepackage{dsfont}
-
 \usepackage{minted}
 \usemintedstyle{vs}
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{tikz}
 \usepackage[framemethod=TikZ]{mdframed}
+\usepackage{listings}
+\usepackage{subcaption}
 
 \AtBeginDocument{\def\labelitemi{$\bullet$}}
 
@@ -40,7 +33,13 @@
 
 On a créé une classe \verb|Balls| qui contient la liste des balles (stockée sous forme de points) ainsi que leurs positions initiales. On a écrit des méthodes classiques sur \verb|Balls| comme par exemple accéder au nombre de balles, définir les coordonnées des balles, mais aussi une méthode \verb|transaction|, et \verb|reInit| qui replace les balles à leurs positions initiales.
 
-Ensuite, on a testé notre classe en prenant 3 balles et en essayant de les translater. On a évidemment aussi essayé, une fois déplacées, de replacer les balles à leurs positions initiales.
+Ensuite, on a testé notre classe en prenant 3 balles et en essayant de les translater. On a évidemment aussi essayé, une fois déplacées, de replacer les balles à leurs positions initiales. On obtient le résultat suivant.
+
+\begin{verbatim}
+[java.awt.Point[x=0,y=0], java.awt.Point[x=3,y=2], java.awt.Point[x=5,y=0]]
+[java.awt.Point[x=-1,y=7], java.awt.Point[x=2,y=9], java.awt.Point[x=4,y=7]]
+[java.awt.Point[x=0,y=0], java.awt.Point[x=3,y=2], java.awt.Point[x=5,y=0]]
+\end{verbatim}
 
 \subsection{Simulateur de balles}
 
@@ -48,9 +47,15 @@ Pour cette classe qui implémente \verb|Simulable|, on a définit comme attribut
 
 Ainsi, quand on va replacer les balles au centre, on va bien pouvoir à la fois les remettre à leurs positions initiales tout en ayant les mêmes vitesses initiales. On ajoute aussi \verb|window| de type \verb|GUISimulator| pour pouvoir dessiner. On ajoute \verb|width|, \verb|height| et \verb|colors| car on les utilise dans notre algorithme même s'ils ne semblent pas indispensables mais cela facilite notre algorithme.
 
-On définit ensuite comme demandé les méthodes \verb|next\verb| et \verb|restart| en faisant bien attention de bien recalculer les nouvelles positions et vitesses des balles et on fait aussi attention à bien \textit{reset} \verb|window| avant de redessiner.
+On définit ensuite comme demandé les méthodes \verb|next| et \verb|restart| en faisant bien attention de bien recalculer les nouvelles positions et vitesses des balles et on fait aussi attention à bien \textit{reset} \verb|window| avant de redessiner.
 
 Ensuite, on teste notre classe en créant 6 balles et on lance la simulation.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.38\textwidth]{TestBallsSimulator.png}
+    \caption{Résultat de la simulation de \texttt{TestBallsSimulator}}
+\end{figure}
 
 \subsection{Jeu de la vie de Conway}
 
@@ -64,11 +69,43 @@ Dans le cas du jeu \verb|Conway|, on étend la classe \verb|Grille| en écrivant
 
 On teste ainsi notre classe avec une grille de taille $10 \times 10$.
 
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.3\textwidth}
+    \includegraphics[width=\textwidth]{TestConway1.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.3\textwidth}
+    \includegraphics[width=\textwidth]{TestConway2.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.3\textwidth}
+    \includegraphics[width=\textwidth]{TestConway3.png}
+\end{subfigure}
+\caption{Résultat de la simulation de \texttt{TestConway} avec 3 états consécutifs}
+\end{figure}
+
 \subsection{Jeu de l'immigration}
 
 C'est exactement le même principe que précédemment sauf qu'au lieu d'avoir seulement 2 états par cellule, on en a $n$. Le seul changement est qu'on stocke le nombre d'états car on l'utilise dans la méthode \verb|next|.
 
-On teste aussi notre classe avec une grille de taille $10 \times 10$, chaque cellule pouvant avoir 5 états.
+On teste aussi notre classe avec une grille de taille $15 \times 10$, chaque cellule pouvant avoir 5 états.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.3\textwidth}
+    \includegraphics[width=\textwidth]{TestImmigration1.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.3\textwidth}
+    \includegraphics[width=\textwidth]{TestImmigration2.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.3\textwidth}
+    \includegraphics[width=\textwidth]{TestImmigration3.png}
+\end{subfigure}
+\caption{Résultat de la simulation de \texttt{TestImmigration} avec 3 états consécutifs}
+\end{figure}
 
 \subsection{Modèle de Schelling}
 
@@ -78,7 +115,23 @@ On considère qu'une habitation laissée libre ne peut pas directement être hab
 
 Lors de notre calcul pour savoir si une habitation va déménager ou non, on a besoin de compter le nombre de couleurs différentes (sans les doublons évidemment), donc on choisit la collection \verb|Set| (pour qu'on puisse manipuler des ensembles). On précise aussi, que s'il y a $n$ couleurs, il y aura $n+1$ états (0 pour une habitation non habitée, et enfin de 1 à $n$ pour les $n$ couleurs).
 
-On teste notre classe avec 4 états (3 couleurs, et habitation vide) et $K=2$  (seuil).
+On teste notre classe avec 6 états (3 couleurs, et habitation vide) et $K=3$ (seuil).
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.3\textwidth}
+    \includegraphics[width=\textwidth]{TestSchelling1.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.3\textwidth}
+    \includegraphics[width=\textwidth]{TestSchelling2.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.3\textwidth}
+    \includegraphics[width=\textwidth]{TestSchelling3.png}
+\end{subfigure}
+\caption{Résultat de la simulation de \texttt{TestSchelling} avec 3 états consécutifs}
+\end{figure}
 
 \subsection{Boids}
 
@@ -86,11 +139,19 @@ On crée une classe \verb|Boid| qui va représenter un essaim avec ses coordonn�
 
 Ensuite, on crée la classe \verb|BoidsSimulator| avec comme attributs principaux la liste de boids actuelle, la liste de boids à l'état initial, ainsi que \verb|window| pour pouvoir dessiner. On rajoute aussi \verb|height|, \verb|width| et \verb|nb| (nombre de boids) pour faciliter notre code. 
 
-Pour cette classe, on code les 3 règles classiques : cohésion, séparation et alignement. On rajoute aussi la règle \verb|bound_position| pour éviter que les essaims sortent de l'écran. Comme notre classe hérite de l'interface \verb|Simulable\verb|, on réécrit également les méthodes \verb|next| et \verb|restart|. On rajoute aussi une méthode pour dessiner.
+Pour cette classe, on code les 3 règles classiques : cohésion, séparation et alignement. On rajoute aussi la règle \verb|bound_position| pour éviter que les essaims sortent de l'écran. Comme notre classe hérite de l'interface \verb|Simulable|, on réécrit également les méthodes \verb|next| et \verb|restart|. On rajoute aussi une méthode pour dessiner.
 
 Pour dessiner, on créé une classe \verb|Triangle| qui implémente \verb|GraphicalElement| et qui permet à partir des coordonnées (\verb|x| et \verb|y|) ainsi que du vecteur vitesse (\verb|velX| et \verb|velY|) de dessiner l'essaim. Pour cela, on recode la fonction \verb|paint| de \verb|GraphicalElement|.
 
 Enfin, on teste notre simulation avec 100 essaims, \verb|height = 500| et \verb|width = 500|. On précise aussi que initialement, on prend comme vecteur vitesse le vecteur de coordonnées (50, -50). Pour ce qui est des coordonnées initiales, on les choisit aléatoirement en faisant bien attention à ce qu'ils soient dans l'écran.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{TestBoidsSimulator.png}
+    \caption{Résultat de la simulation de \texttt{TestBoidsSimulator}}
+\end{figure}
+
+\newpage
 
 \section{Diagrammes de classes}
 
