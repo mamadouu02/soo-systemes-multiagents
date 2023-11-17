@@ -21,8 +21,9 @@ public class Immigration extends Grille {
             for (int j = 0; j < m; j++) {
                 grilleAvant[i][j] = new Cellule(grilleDessin[i][j]);
                 int etat = grilleAvant[i][j].getEtat();
+
                 window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK,
-                        Color.decode("#" + (etat * 10) + (etat * 10)), 50, 50));
+                        Color.decode(hexColor(etat)), 50, 50));
             }
         }
     }

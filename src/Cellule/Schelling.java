@@ -47,11 +47,12 @@ public class Schelling extends Grille {
                 }
 
                 int etat = grilleAvant[i][j].getEtat();
+
                 if (etat == 0) {
                     window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK, Color.WHITE, 50, 50));
                 } else {
                     window.addGraphicalElement(new Rectangle(i * 50, j * 50, Color.BLACK,
-                            Color.decode("#" + (etat * etat) + (etat * etat)), 50, 50));
+                            Color.decode(hexColor(etat)), 50, 50));
                 }
             }
         }

@@ -37,6 +37,17 @@ public abstract class Grille implements Simulable {
 
     protected abstract void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleDessin);
 
+    protected String hexColor(int etat) {
+        // Calcule les composantes RVB en fonction de l'etat
+        int red = (int) (Math.sin(etat * 0.3) * 127 + 128);
+        int green = (int) (Math.sin(etat * 0.3 + 2) * 127 + 128);
+        int blue = (int) (Math.sin(etat * 0.3 + 4) * 127 + 128);
+
+        // Convertit les composantes RVB en hexadécimal
+        String color = String.format("#%02X%02X%02X", red, green, blue);
+        return color;
+    }
+
     @Override
     public abstract void next();
 
