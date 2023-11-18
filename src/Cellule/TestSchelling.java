@@ -1,4 +1,4 @@
-package Cellule;
+package cellule;
 
 import java.awt.*;
 

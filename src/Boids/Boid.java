@@ -1,4 +1,4 @@
-package Boids;
+package boids;
 
 import java.awt.*;
 
@@ -38,12 +38,12 @@ public class Boid {
 
     // Redéfiniton de la méthode equals de la classe Object.
     @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Boid)) {
-            return false;
+    public boolean equals(Object other) {
+        if (other instanceof Boid) {
+            Boid o = (Boid) other;
+            return this.pos.equals(o.pos) && this.velocity.equals(o.velocity);
         }
-
-        Boid other = (Boid) o;
-        return this.pos.equals(other.pos) && this.velocity.equals(other.velocity);
+        
+        return false;
     }
 }

@@ -1,4 +1,4 @@
-package Boids;
+package boids;
 
 import java.awt.*;
 import java.util.Random;

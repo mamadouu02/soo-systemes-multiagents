@@ -1,4 +1,4 @@
-package Balls;
+package balls;
 
 import java.awt.*;
 
@@ -66,7 +66,7 @@ public class BallsSimulator implements Simulable {
     public void restart() {
         window.reset();
 
-        // On réinitialise les postions des balls.
+        // On réinitialise les positions des ballzs.
         balls.reInit();
 
         for (int i = 0; i < balls.getNbBalls(); i++) {

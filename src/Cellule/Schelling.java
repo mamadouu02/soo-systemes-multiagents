@@ -1,4 +1,4 @@
-package Cellule;
+package cellule;
 
 import java.awt.*;
 import java.util.*;
@@ -13,7 +13,7 @@ public class Schelling extends Grille {
     // Une file des habitations actuellement libres.
     private final Queue<Point> vacantAvant = new LinkedList<Point>();
 
-    // Une file des habitations qu'on va rendre libre à l'état d'après (après un next).
+    // Une file des habitations qu'on va rendre libres à l'état d'après (après un next).
     private final Queue<Point> tmp = new LinkedList<Point>();
 
     public Schelling(Cellule[][] grille, int nbEtats, int K, GUISimulator window) {

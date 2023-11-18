@@ -1,4 +1,4 @@
-package Event;
+package event;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ public class EventManager {
 
     private long currentDate;
 
-    // On choisit une table de hachage pour gérer les évènements : pour chaque date (un long) est associée
+    // On choisit une table de hachage pour gérer les évènements : à chaque date (un long) est associée
     // une file d'évènements qui doivent s'éxécuter à cette date.
     private final Map<Long, Queue<Event>> events;
 
@@ -24,7 +24,7 @@ public class EventManager {
             Queue<Event> file = events.get(this.currentDate);
             Event e;
 
-            // On vide et éxécute la file d'évènements pour la date voulue.
+            // On vide et exécute la file d'évènements pour la date voulue.
             while (!file.isEmpty()) {
                 e = file.remove();
                 e.execute();

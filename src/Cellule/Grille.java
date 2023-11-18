@@ -1,4 +1,4 @@
-package Cellule;
+package cellule;
 
 import gui.GUISimulator;
 import gui.Simulable;
@@ -13,7 +13,7 @@ public abstract class Grille implements Simulable {
 
     protected GUISimulator window;
 
-    // Liste des lignes où tu peux avoir un voisin (prenant en compte les bords.
+    // Liste des lignes où tu peux avoir un voisin (prenant en compte les bords).
     protected int[] voisinsLigne;
     // Pareil avec les colonnes.
     protected int[] voisinsColonne;
@@ -42,7 +42,7 @@ public abstract class Grille implements Simulable {
     protected abstract void dessiner(Cellule[][] grilleAvant, Cellule[][] grilleDessin);
 
     protected String hexColor(int etat) {
-        // Calcule les composantes RGB en fonction de l'etat.
+        // Calcule les composantes RGB en fonction de l'état.
         int red = (int) (Math.sin(etat * 0.3) * 127 + 128);
         int green = (int) (Math.sin(etat * 0.3 + 2) * 127 + 128);
         int blue = (int) (Math.sin(etat * 0.3 + 4) * 127 + 128);

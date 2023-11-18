@@ -17,8 +17,6 @@
 \usepackage{listings}
 \usepackage{subcaption}
 
-\AtBeginDocument{\def\labelitemi{$\bullet$}}
-
 \title{Simulation Orientée-Objet de systèmes multiagents}
 \author{}
 \date{}
@@ -135,7 +133,7 @@ On teste notre classe avec 6 états (3 couleurs, et habitation vide) et $K=3$ (s
 
 \subsection{Boids}
 
-On crée une classe \verb|Boid| qui va représenter un essaim avec ses coordonnées, ainsi que son vecteur vitesse. On écrit les fonctions classiques qui permettent d'accéder et de modifier les attributs privés. On réécrit aussi la méthode \verb|equals| de la classe \verb|Objet| car on va l'utiliser plus tard.
+On crée une classe \verb|Boid| qui va représenter un essaim avec ses coordonnées, ainsi que son vecteur vitesse. On écrit les fonctions classiques qui permettent d'accéder et de modifier les attributs privés. On réécrit aussi la méthode \verb|equals| de la classe \verb|Object| car on va l'utiliser plus tard.
 
 Ensuite, on crée la classe \verb|BoidsSimulator| avec comme attributs principaux la liste de boids actuelle, la liste de boids à l'état initial, ainsi que \verb|window| pour pouvoir dessiner. On rajoute aussi \verb|height|, \verb|width| et \verb|nb| (nombre de boids) pour faciliter notre code. 
 
